@@ -1,7 +1,30 @@
 pico-8 cartridge // http://www.pico-8.com
 version 35
 __lua__
--- hello drew ya dummy
+#include attract.lua 
+#include entities.lua 
+#include game_over.lua 
+#include inventory.lua 
+#include main.lua 
+#include playing.lua 
+#include spells.lua 
+#include utils.lua 
+
+-------------------------------------------------------------------------
+function _init()
+    main_init()
+end
+
+-------------------------------------------------------------------------
+function _update60()
+    main_update(1/60);
+end
+
+-------------------------------------------------------------------------
+function _draw()
+    cls();
+    main_draw();
+end
 
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000

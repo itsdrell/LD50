@@ -1,0 +1,2 @@
+-- What holds our items and probably draws it?
+-- maybe everyone has an inventory 
