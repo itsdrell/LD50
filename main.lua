@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------
 g_allStates = {}
-g_currentState = "playing" -- attract,tutorial, playing, gameLost
+g_currentState = "attract" -- attract,tutorial, playing, gameLost
 
 g_totalTime = 0
 
@@ -22,12 +22,14 @@ end
 -------------------------------------------------------------------------
 function main_init()
     InitStates();
+    GoToState("playing");
 end
 
 -------------------------------------------------------------------------
 function main_update(ds)
     g_totalTime = g_totalTime + ds;
     g_allStates[g_currentState]:Update(ds);
+    UpdateAllTimers(ds);
 end
 
 -------------------------------------------------------------------------
