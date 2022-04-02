@@ -7,72 +7,32 @@ spell_flipx = false
 -------------------------------------------------------------------------
 function Playing:Enter()
     self:StartUp()
-    SpawnEnemy()
 end
 
 -------------------------------------------------------------------------
 function Playing:StartUp()
+    g_thePlayer = Player:Create(64,64)
+    Enemy:Create(68,68)
 end
- playerX= 64  playerY = 64
+ 
 -------------------------------------------------------------------------
-function Playing:Update(ds)
-    flip_x = false
-    if (btn(0)) then
-        playerX=playerX-1 
-        flip_x = true 
-    end
-    if (btn(1)) then 
-        playerX=playerX+1
-    end
-    if (btn(2)) then playerY=playerY-1 end
-    if (btn(3)) then playerY=playerY+1 end
+function Playing:Update(ds) 
+    g_thePlayer:Update(ds)
+
+    UpdateAllEntities(ds)
     
-    if (btn(4)) then
-        CastSpell(playerX+10,playerY)
-    end
-    
-    if (g_spell ~= nil) then
-        UpdateSpell(ds)
-    end
 end
 
 -------------------------------------------------------------------------
 function Playing:Draw()
     cls()
-    
-    spr(1,playerX,playerY,1,1,flip_x,false)
-    flip_x = false
-    --circ(playerX+4, playerY+4,4,15)
-    
-    pset(playerX,playerY,14)
 
-    DrawEnemy()
+    g_thePlayer:Draw()
 
-    if (g_spell ~= nil) then 
-        if (flip_x == true) then
-        end
-        DrawSpell(spell_flipx)
-    end
+    DrawAllEntities()
+
 end
 
--------------------------------------------------------------------------
---sprite mov X
---moving spell X
---bad guy X
---bad guy disapears when hit
---
-------------------------------------------------------------------------
-function SpawnEnemy()
-    enemy_hp = 10
-end 
-
-function DrawEnemy()
-    spr(3,64,64,1,1,true, false)
-    --circ(68,68,4,15)
-end
-
-function UpdateEnemy()
-end
 ------------------------------------------------------------------------
 function CastSpell(spellX,spellY)
     g_spell = true
@@ -116,3 +76,9 @@ function DoesDiscOverlap(Ax,Ay,Ar,Bx,By,Br)
     return false
 end
 ------------------------------------------------------------------------
+-- Entity class (update, render, create for all)
+-- Player class
+-- Enemy class (multi enemies)
+-- Spell class (multi spells)
+------------------------------------------------------------------------
+

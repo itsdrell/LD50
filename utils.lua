@@ -7,8 +7,8 @@ function Pick(condition, valueIfTrue, valueIfFalse)
 end
 
 -------------------------------------------------------------------------
-function Lerp(start, end, percent)
-    return start * (1 - percent) + (percent * end);
+function Lerp(start, dest, percent)
+    return start * (1 - percent) + (percent * dest)
 end 
 
 -------------------------------------------------------------------------
