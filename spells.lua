@@ -10,9 +10,9 @@ function Spell:Create(X,Y,flip)
     setmetatable( Spell, { __index = Entity } )
     setmetatable( newInst, { __index = Spell } )
 
-    newInst.hp = 1
+    newInst.currHp = 1
     newInst.animation = Animation:Create(.25, {17, 18})
-    newInst.damage = 10
+    newInst.damage = 20
     newInst.posVec = Vector2:Create(X,Y)
     newInst.flip = flip
 
@@ -44,13 +44,16 @@ function Spell:Update(ds)
 
     self.animation:Update(ds)
 
+    if (IsSolid(self.posVec.x + 4, self.posVec.y +4)) then
+        self.isDead = true
+    end
+
 end
 
 function Spell:Draw()
     self.animation:Draw(self.posVec.x, self.posVec.y, self.flip)
 
     --circ(self.col.center.x, self.col.center.y, self.col.radius, 15)
-    print(self.col.center.x, 10, 30)
 end
 
 function DoesDiscOverlap(Ax,Ay,Ar,Bx,By,Br)

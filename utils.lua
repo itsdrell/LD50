@@ -24,6 +24,22 @@ function RangeMap(inValue, inStart, inEnd, outStart, outEnd)
 	return outRelativeToStart + outStart;
 end
 
+function IsSolid(x,y)
+    local mapX = flr(x / 8)
+    local mapY = flr(y / 8)
+    local mapSprite = mget(mapX, mapY)
+    local flag = fget(mapSprite)
+
+    return flag == 1
+end
+
+function CanMove(x,y,w,h)
+    if (IsSolid(x, y)) then return false end
+    if (IsSolid(x + w, y)) then return false end
+    if (IsSolid(x, y + h)) then return false end
+    if (IsSolid(x + w, y + h)) then return false end
+    return true
+end
 -------------------------------------------------------------------------
 -- Timer
 -------------------------------------------------------------------------
