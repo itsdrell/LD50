@@ -5,7 +5,7 @@ Entity =
     hp = 0,
     posVec = nil,
     col = nil,
-    sprite = 0,
+    amimation = nil,
     flip = false,
     isDead = false
 }
@@ -50,7 +50,7 @@ function Player:Create(X,Y)
     setmetatable( newInst, { __index = Player } )
 
     newInst.hp = 10
-    newInst.sprite = 1
+    newInst.animation = Animation:Create(.25,{1, 2, 3, 4})
     newInst.posVec = Vector2:Create(X,Y)
     newInst.flip = false
     newInst.col = Disc:Create(newInst.posVec.x, newInst.posVec.y, 4)
@@ -78,12 +78,14 @@ function Player:Update(ds)
     if (btnp(4)) then
         Spell:Create(self.posVec.x,self.posVec.y,self.flip)
     end
+
+    self.animation:Update(ds)
+
 end
 
 function Player:Draw()
-    spr(self.sprite,self.posVec.x,self.posVec.y,1,1,self.flip,false)
     --circ(self.posVec.x+4, self.posVec.y+4,4,15)
-    
+    self.animation:Draw(self.posVec.x,self.posVec.y, self.flip)
     pset(self.posVec.x,self.posVec.y,14)
 
 end
@@ -104,7 +106,7 @@ function Enemy:Create(X,Y)
     setmetatable( newInst, { __index = Enemy } )
 
     newInst.hp = 100
-    newInst.sprite = 3
+    newInst.animation = Animation:Create(.25,{33})
     newInst.posVec = Vector2:Create(X,Y)
     newInst.flip = false
     newInst.col = Disc:Create(newInst.posVec.x + 4, newInst.posVec.y + 4, 4)
@@ -113,11 +115,13 @@ end
 
 function Enemy:Update(ds)
     --Ai inplementaion for move???
+    self.animation:Update(ds)
 end
 
 function Enemy:Draw()
-    spr(self.sprite,self.posVec.x,self.posVec.y,1,1,true, false)
-    circ(self.col.center.x, self.col.center.y, self.col.radius, 15)
+    self.animation:Draw(self.posVec.x, self.posVec.y, self.flip)
+
+    --circ(self.col.center.x, self.col.center.y, self.col.radius, 15)
     print(self.hp)
 end
 ------------------------------------------------------------------------

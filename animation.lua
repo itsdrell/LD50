@@ -30,6 +30,6 @@ function Animation:Update(ds)
 end 
 
 -------------------------------------------------------------------------
-function Animation:Draw(x,y)
-    spr(self.frames[self.current_frame], x, y)
+function Animation:Draw(x,y,flip)
+    spr(self.frames[self.current_frame], x, y, 1, 1,flip)
 end

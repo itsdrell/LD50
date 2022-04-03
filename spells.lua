@@ -11,7 +11,7 @@ function Spell:Create(X,Y,flip)
     setmetatable( newInst, { __index = Spell } )
 
     newInst.hp = 1
-    newInst.sprite = 2
+    newInst.animation = Animation:Create(.25, {17, 18})
     newInst.damage = 10
     newInst.posVec = Vector2:Create(X,Y)
     newInst.flip = flip
@@ -42,20 +42,22 @@ function Spell:Update(ds)
         end
     end
 
+    self.animation:Update(ds)
 
 end
 
 function Spell:Draw()
-    spr(2,self.posVec.x,self.posVec.y,1,1,self.flip,false) --Spell Flip
-    circ(self.col.center.x, self.col.center.y, self.col.radius, 15)
+    self.animation:Draw(self.posVec.x, self.posVec.y, self.flip)
+
+    --circ(self.col.center.x, self.col.center.y, self.col.radius, 15)
     print(self.col.center.x, 10, 30)
 end
 
 function DoesDiscOverlap(Ax,Ay,Ar,Bx,By,Br)
-    xTotal = (Ax - Bx) * (Ax - Bx)
-    yTotal = (Ay - By) * (Ay - By)
+    xTotal = (Bx - Ax) * (Bx - Ax)
+    yTotal = (By - Ay) * (By - Ay)
     rSqrd = (Ar + Br) * (Ar + Br)
-    d = (xTotal + yTotal)
+    d = abs(xTotal + yTotal)
 
     if (d < rSqrd) then
         return true
